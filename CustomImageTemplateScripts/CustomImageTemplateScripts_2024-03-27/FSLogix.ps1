@@ -100,8 +100,8 @@ Set-ItemProperty `
 if(($PSBoundParameters.ContainsKey('ProfilePath'))) {
     New-ItemProperty `
     -Path HKLM:\Software\FSLogix\Profiles `
-    -Name "CCDLocations" `
-    -Value "type=smb,connectionString=$ProfilePath" `
+    -Name "VHDLocations" `
+    -Value $ProfilePath `
     -PropertyType MultiString `
     -Force
 }
@@ -123,19 +123,34 @@ Set-ItemProperty `
     -Value "vhdx"
 Set-ItemProperty `
     -Path HKLM:\Software\FSLogix\Profiles `
+    -Name "ProfileType" `
+    -Type "Dword" `
+    -Value "0"
+Set-ItemProperty `
+    -Path HKLM:\Software\FSLogix\Profiles `
     -Name "FlipFlopProfileDirectoryName" `
     -Type "Dword" `
     -Value "1" 
 Set-ItemProperty `
     -Path HKLM:\Software\FSLogix\Profiles `
-    -Name "SIDDirNamePattern" `
-    -Type String `
-    -Value "%username%%sid%"
+    -Name "LockedRetryCount" `
+    -Type "Dword" `
+    -Value "3"
 Set-ItemProperty `
     -Path HKLM:\Software\FSLogix\Profiles `
-    -Name "SIDDirNameMatch" `
-    -Type String `
-    -Value "%username%%sid%"
+    -Name "LockedRetryInterval" `
+    -Type "Dword" `
+    -Value "15"
+Set-ItemProperty `
+    -Path HKLM:\Software\FSLogix\Profiles `
+    -Name "ReAttachIntervalSeconds" `
+    -Type "Dword" `
+    -Value "15"
+Set-ItemProperty `
+    -Path HKLM:\Software\FSLogix\Profiles `
+    -Name "ReAttachRetryCount" `
+    -Type "Dword" `
+    -Value "3"
 Set-ItemProperty `
     -Path HKLM:\Software\FSLogix\Profiles `
     -Name DeleteLocalProfileWhenVHDShouldApply `
